@@ -1,0 +1,19 @@
+<%- include('../../partials/header.ejs'); %>
+<%- include('../../partials/navbar.ejs'); %>
+
+<div class="container">
+   <div class="row">
+       <div class="col-sm-12 card">
+           <hr>
+           <form action="/admin/categories/save" method="POST">
+               <div class="form-group">
+                    <label for="title">Defina o Título da Categoria</label>
+                    <input required type="text" name="title" class="form-control" id="title">
+                </div>
+                <button type="submit" class="btn btn-primary">Cadastrar Categoria</button>
+           </form>
+       </div>
+   </div>
+</div>
+
+<%- include('../../partials/footer.ejs'); %>
