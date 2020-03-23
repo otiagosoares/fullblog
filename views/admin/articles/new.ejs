@@ -10,7 +10,7 @@
          		<h1> Novo Artigo </h1>
          	</div>
          	<div class="card-body">
-         		<form method="POST" action="/articles/save">
+         		<form method="POST" action="/admin/articles/save">
          			<div class="form-group">
 	                    <label for="title">Titulo do Artigo:</label>
 	                    <input required type="text" name="title" class="form-control" id="title">
@@ -19,10 +19,12 @@
          				<label for="category">Categoria:</label>
          				<select class="form-control" name="category">
          					<option> Selecione uma Categoria ... </option>
+
          					<% categories.forEach((category) => {%>
          						<option value="<%= category.id %>"> <%= category.title %> </option>
 
          					<% }) %>
+         					
          				</select>
          			</div>
          			<div class="form-group">

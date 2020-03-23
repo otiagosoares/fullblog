@@ -1,11 +1,17 @@
 const express = require('express')
 const Router = express.Router()
+
+const slugify = require('slugify')
+
 const Category = require('../categories/Category')
+const Article = require('./Article')
 
 const pathURL = '/admin/articles'
-
 const pathViews = 'admin/articles/'
 
+Router.get(pathURL, (req, res)=>{
+	res.send('lista articles')
+})
 
 Router.get(pathURL + '/new', (req, res)=>{
 
@@ -13,6 +19,25 @@ Router.get(pathURL + '/new', (req, res)=>{
 		res.render(pathViews + '/new', {categories: categories})
 	})
 
+})
+
+Router.post(pathURL + '/save', (req, res) => {
+
+	var title = req.body.title
+	var body = req.body.body
+	var slug = slugify( title )
+	var categoryId = req.body.category
+
+	Article.create({
+
+		title: title,
+		slug: slug.toLowerCase(),
+		body: body,
+		categoryId: categoryId
+
+	}).then(() => {
+		res.redirect(pathURL)
+	})
 })
 
 
