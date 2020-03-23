@@ -10,10 +10,17 @@ const pathURL = '/admin/articles'
 const pathViews = 'admin/articles/'
 
 Router.get(pathURL, (req, res)=>{
-	res.send('lista articles')
+
+	Article.findAll({
+		include: [{model: Category}]
+	}).then( articles => {
+
+		res.render(pathViews, {articles: articles})
+
+	})
 })
 
-Router.get(pathURL + '/new', (req, res)=>{
+Router.get(pathURL + '/new', (req, res) => {
 
 	Category.findAll().then( categories => {
 		res.render(pathViews + '/new', {categories: categories})
