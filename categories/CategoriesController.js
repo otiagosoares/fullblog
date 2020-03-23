@@ -39,21 +39,52 @@ Router.post(pathURL + '/save', (req, res) => {
     }
 })
 
-Router.post(pathURL + '/delete', (req, res) => {
+Router.post('/categories/delete/', (req, res) => {
 
     var idCategorie = req.body.id
 
-    if(idCategorie != undefined && isNaN(idCategorie)){
+    if(idCategorie != undefined && !isNaN(idCategorie)){
+
         Category.destroy({ 
             where: {id: idCategorie}
         })
         .then(()=>{
             res.redirect(pathURL)
         })
+
     }else{
+
         res.redirect(pathURL)
+        
     }
         
+})
+
+Router.get(pathURL + '/edit/:id', (req, res) => {
+
+    var id = req.params.id
+
+    if(isNaN(id))
+        res.redirect('/admin/categories')
+
+    Category.findByPk(id).then((category) => {
+
+        if(category != undefined){
+
+            res.render(pathViews + 'edit', {category: category})
+
+        }else{
+
+            res.redirect('/admin/categories')
+
+        }
+    }).catch( error=>{
+
+        res.redirect('/admin/categories')
+
+    })
+
+   
 })
 
 module.exports = Router
