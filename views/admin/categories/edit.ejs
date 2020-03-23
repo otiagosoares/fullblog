@@ -5,10 +5,11 @@
    <div class="row">
        <div class="col-sm-12 card">
            <hr>
-           <form action="/admin/categories/update/<%= category.id %>" method="POST">
+           <form action="/categories/update" method="POST">
                <div class="form-group">
                     <label for="title">Redefina o Título da Categoria: <i><%= category.title %></i></label>
                     <input required type="text" value="<%= category.title %>" name="title" class="form-control" id="title">
+                    <input type="hidden" value="<%= category.id %>" name="id" class="form-control" id="title">
                 </div>
                 <button type="submit" class="btn btn-primary">Edite a Categoria</button>
            </form>

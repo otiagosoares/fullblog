@@ -29,7 +29,7 @@ Router.post(pathURL + '/save', (req, res) => {
 
         Category.create({
             title: title,
-            slug: slugify(title)
+            slug: slugify(title.toLowerCase())
         }).then(()=>{
             res.redirect(pathURL)
         })
@@ -83,8 +83,27 @@ Router.get(pathURL + '/edit/:id', (req, res) => {
         res.redirect('/admin/categories')
 
     })
-
    
 })
 
+Router.post('/categories/update', (req, res)=>{
+
+    var id = req.body.id
+    var title = req.body.title
+
+    if (id != undefined || !isNaN(id)) {
+
+
+        Category.update({title: title, slug: slugify(title.toLowerCase())}, {
+            where: {
+                id: id
+            }
+        }).then(() =>{
+             res.redirect('/admin/categories')
+         }).catch(e=>{
+            console.error(e)
+         })
+
+    }else{ console.log('aqui')}
+})
 module.exports = Router
