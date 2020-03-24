@@ -28,6 +28,40 @@ Router.get(pathURL + '/new', (req, res) => {
 
 })
 
+Router.get(pathURL + '/edit/:id', (req, res) => {
+
+	var id = req.params.id
+		 
+	Article.findByPk(id, {
+		include: [{model: Category}]
+	} ).then( article => {
+		res.render(pathViews + '/edit', {article: article})
+	})
+
+})
+
+Router.post('/articles/delete/', (req, res) => {
+
+    var idArticle = req.body.id
+
+    if(idArticle != undefined && !isNaN(idArticle)){
+
+        Article.destroy({ 
+            where: {id: idArticle}
+        })
+        .then(()=>{
+            res.redirect(pathURL)
+        })
+
+    }else{
+
+        res.redirect(pathURL)
+        
+    }
+        
+})
+
+
 Router.post(pathURL + '/save', (req, res) => {
 
 	var title = req.body.title
